@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
+import { connectToDatabase } from "@/lib/db";
 import Message from "@/models/message";
 
 export async function GET() {
   try {
-    await connectDB(); // Ensure MongoDB is connected
+    await connectToDatabase(); // Ensure MongoDB is connected
     const messages = await Message.find().sort({ timestamp: 1 });
 
     return NextResponse.json({

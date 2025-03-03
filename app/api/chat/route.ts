@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { VertexAI } from "@google-cloud/vertexai";
-import { connectDB } from "@/lib/mongodb";
+import { connectToDatabase } from "@/lib/db";
 import Message from "@/models/message";
 
 const projectId = process.env.NEXT_PUBLIC_GEMINI_API_KEY as string;
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       );
 
     // Connect to MongoDB
-    await connectDB();
+    await connectToDatabase();
 
     // Save user message to MongoDB
     await Message.create({ role: "user", content: message });
